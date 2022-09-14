@@ -5,14 +5,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>America 2022</title>
+    <title>Campaign 2022</title>
 </head>
 
 <body>
-    <h1>Gexler for Congress</h1>
- 
-   
-    <a href="/home">Back to Index</a>
+    <h1>America 2022</h1>
+    <nav>
+        <a href="/staff/new">New Hires
+    </nav>
+    <ul>
+        <% for(let i=0; i < allStaff.length; i++) { %>
+            <li>
+                <a href="/staff/<%=i%>"> <img src="<%=allStaff[i].img %>" /></a><br>
+                <a href="/staff/<%=i%>">
+                    <%=allStaff[i].name %>
+                </a><br>
+                <a href="/staff/<%=i%>">
+                    <%=allStaff[i].title %>
+                </a><br>
+            
+                <form action="/staff/<%=i; %>?_method=DELETE" method="POST">
+                    <input type="submit" value="Fire" />
+                </form>
+                <form action="/staff/<%=i;%>?_method=EDIT" method="POST">
+                    <input type="submit" value="Add Task" />
+                  <a href="/books/<%=staff._id %>/edit">Add New Task/a>
+                  </form>
+            </li>
+            <% } %>
+
+    <a href="/staff">Back to Index</a>
 
 </body>
 

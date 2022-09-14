@@ -3,16 +3,28 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Create a new Fruit</title>
+    <title>New Staff</title>
   </head>
   <body>
-    <h1>New Fruit page</h1>
+    
+    <h1>New Staff</h1>
     <!--  NOTE: action will be the route, method will be the HTTP verb-->
-    <form action="/fruits" method="POST">
+
+    <div id="drop-area">
+      <form class="my-form">
+        <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+        <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+        <label class="button" for="fileElem">Select some files</label>
+      </form>
+    </div>
+    <form action="/staff/" method="POST">
       Name: <input type="text" name="name" /><br />
-      Color: <input type="text" name="color" /><br />
-      Is Ready To Eat: <input type="checkbox" name="readyToEat" /><br />
-      <input type="submit" value="Create Fruit" />
+      Title: <input type="text" name="name" /><br />
+      Job: <input type="text" name="name" /><br />
+      Tasks: <input type="text" name="name" /><br />
+      Recently Hired: <input type="checkbox" /><br />
+      <input type="submit" value="Add New Employee" />
     </form>
-  </body>
-</html>
+    
+    </body>
+    </html>

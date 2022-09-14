@@ -4,17 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff</title>
+    <title><%=staff.name%></title>
 </head>
 <body>
-    <h1>Staff</h1>
-    <h2>
-    The <%=staff.title %> is <%= staff.name %>
- <% if(fruit.readyToEat === true){ %> It is ready to eat <% } 
-    else { %> It is not ready to eat <% }
-    %>
-
-    </h2>
-    <a href="/home">Back to Index</a> 
+    <a href="/staff">Meet The Team!</a>
+    <h1><%=staff.name%></h1>
+    <img src=<%=staff.img%>>
+    <p><%=staff.title%></p> 
+    <p><%=staff.job%></p> 
+    <p><%=staff.tasks%></p> 
 </body>
 </html>
