@@ -1,17 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=staff.name%></title>
+    <title>Meet The Team</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <a href="/staff">Meet The Team!</a>
-    <h1><%=staff.name%></h1>
-    <img src=<%=staff.img%>>
-    <p><%=staff.title%></p> 
-    <p><%=staff.job%></p> 
-    <p><%=staff.tasks%></p> 
+    <div class="text-center">
+    <h3 > Meet The Teamx </h3>
+    <h1>
+        <%=staff.name%>
+    </h1>
+    <img src="<%=staff.img%>" 
+    style="height: 300px; width: 300px; border-radius: 50%;"  alt="staff member">
+    
+
+    
+    <h3>
+        <%=staff.title%>
+    </h3><br>
+    <h4><%=staff.job%></h4><br>
+    <h1><%=staff.tasks%></h1>
+    <a href="/staff/<%=staff._id %>/edit">Edit Task</a>
+    <br>
+    <form action="/staff/<%= staff._id %>?_method=DELETE" method="POST">
+        <input type="submit" value="Fire" />
+    </form>
+    </div>
+
 </body>
+
 </html>

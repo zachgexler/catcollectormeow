@@ -1,178 +1,107 @@
+// DEPENDENCIES
 const express = require("express");
 const app = express();
 require("dotenv").config();
 const mongoose = require("mongoose");
-const staff = require("./models/staff.js");
-const methodOverride = require("method-override");
-const port = 1776;
+const methodOverride = require("method-override")
+
+app.use(express.static(__dirname + '/public'));
+
 // DATABASE CONFIGURATION
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
-app.use((req, res, next)=>{
-      console.log("I run for all routes")
-      next()
-    })
-    
-    
-    app.post("/staff", (req, res) => {
-      console.log(req.body)
-      res.send("data received")
-    })
 // Database Connection Error/Success
 // Define callback functions for various events
-const db = mongoose.connection
+const db = mongoose.connection;
 db.on('error', (err) => console.log(err.message + ' is mongo not running?'));
 db.on('connected', () => console.log('mongo connected'));
 db.on('disconnected', () => console.log('mongo disconnected'));
 
 // MIDDLEWARE  & BODY PARSER
-
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
-// DEFINE OUR ROUTES
+//ROUTES
 
-// INDEX
-app.get('/staff', (req, res) => 
-    staff.find, (error, allStaff) => {
+const Seed = require("./models/seed.js");
+const Staff = require("./models/schema.js")
+
+app.get('/staff/seed', (req, res) => {
+    console.log("in seed");
+    Staff.deleteMany({}, (error, allSeeds) => {});
+
+    Staff.create(Seed, (error, data) => {
+        console.log(data);
+        res.redirect('/staff');
+    });
+});
+
+//INDEX
+app.get("/staff", (req, res) => {
+    Staff.find((error, allStaff) => {
         res.render('index.ejs', {
-            staff: allStaff,
+            allStaff : allStaff
         });
     });
-
-// NEW
-  app.get("/staff/new", function (req, res) {
-    res.render("new.ejs")
-  })
+})
 
 
-//Delete
-  app.delete("/staff/:indexOfStaffArray", (req, res) => {
-    staff.splice(req.params.indexOfStaffArray, 1) //remove the item from the array
-    res.redirect("/staff") //redirect back to index route
-  })
+//GET new
+app.get("/staff/new", (req, res) => {
+    res.render("new.ejs");
+})
 
-// UPDATE
+//POST new
+app.post("/staff/new", (req, res) => {
+    Staff.create(req.body, (error, newStaff) => {
+        console.log(newStaff);
+        res.redirect("/staff");
+    });
+})
+
+
+// SHOW
+app.get("/staff/:id", (req, res) => {
+    Staff.findById(req.params.id, (err, staff) => {
+        res.render("show.ejs", { staff: staff })
+    })
+})
+
+// DELETE
+app.delete("/staff/:id", (req, res) => {
+    Staff.findByIdAndDelete(req.params.id, (err, foundStaff) => {
+        res.redirect("/staff")
+    })
+});
+
+// GET Edit
+app.get("/staff/:id/edit", (req, res) => {
+    Staff.findById(req.params.id, (error, foundStaff) => {
+        res.render("edit.ejs", {
+            staff : foundStaff,
+        })
+    })
+})
+
+// PUT Edit
 app.put("/staff/:id", (req, res) => {
-    if (req.body.completed === "on") {
-        req.body.completed = true
-    } else {
-        req.body.completed = false
-    }
-
-    staff.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        {
-            new: true,
-        },
+    Staff.findByIdAndUpdate(req.params.id, req.body, {new: true},
         (error, updatedStaff) => {
             res.redirect(`/staff/${req.params.id}`)
         }
     )
 });
 
-// CREATE
-app.post("/staff", (req, res) => {
-    if (req.body.completed === 'on') {
-        //if checked, req.body.completed is set to 'on'
-        req.body.completed = true;
-    } else {
-        //if not checked, req.body.completed is undefined
-        req.body.completed = false;
-    }
-    staff.create(req.body, (error, createdStaff) => {
-        res.redirect("/staff");
-    });
+
+
+
+
+
+// LISTENER
+const PORT = process.env.PORT || 1776;
+app.listen(PORT, () => {
+    console.log(`The serer is listening on port: ${PORT}`)
 })
-// EDIT
-app.get("/staff/:id/edit", (req, res) => {
-    staff.findById(req.params.id, (error, foundStaff) => {
-        res.render("edit.ejs", {
-            staff: foundStaff,
-        })
-    })
-})
-
-// SHOW
-app.get("/books/:id", (req, res) => {
-    Book.findById(req.params.id, (err, foundBook) => {
-        res.render("show.ejs", { book: foundBook })
-    })
-})
-// TELL OUR APP TO LISTEN ON PORT...
-app.listen(port, () => {
-    console.log(`listening on port `, port)
-});
-// // REQUIRE DEPENDENCIES
-// const express = require('express');
-// const fruits = require('./models/fruits.js');
-
-// // INITIALIZE EXPRESS APP
-// const app = express();
-// const port = 3000;
-
-// // MIDDLEWARE
-// // Processes that run in between requests and responses
-// // app.use((req, res, next)=>{
-// //   console.log('i run for all routes')
-// //   next()
-// // })
-// // This adds data to req.body so we can access it in the CREATE action
-// app.use(express.urlencoded({ extended: false }));
-
-// // DEFINE OUR ROUTES
-
-// // INDEX
-// app.get("/fruits/", (req, res)=>{
-//     res.render("index.ejs", {
-//       allFruits: fruits
-//     })
-// });
-
-// // NEW
-// app.get("/fruits/new", (req, res)=>{
-//   res.render("new.ejs")
-// });
-
-// // D
-// // U
-
-// // CREATE
-// app.post("/fruits", (req, res)=>{
-//   if (req.body.readyToEat === "on") {
-//     //if checked, req.body.readyToEat is set to 'on'
-//     req.body.readyToEat = true //do some data correction
-//   } else {
-//     //if not checked, req.body.readyToEat is undefined
-//     req.body.readyToEat = false //do some data correction
-//   }
-//   fruits.push(req.body)
-//   res.redirect("/fruits")
-// });
-
-// // E
-
-// // SHOW
-// app.get("/fruits/:indexOfFruitsArray", (req, res)=>{
-//     res.render("show.ejs", {
-//       fruit: fruits[req.params.indexOfFruitsArray]
-//     })
-// });
-
-// // TELL OUR APP TO LISTEN ON PORT...
-// app.listen(port, ()=>{
-//     console.log(`listening on port `, port)
-// });
-
-// Action	URL	HTTP Verb	EJS view filename	mongoose method
-// 1	Index	/logs/	GET	index.ejs	Log.find()
-// 2	Show				
-// 3	New	/logs/new	GET	new.ejs	none
-// 4	Create	/logs/	POS T	none	Log.create(req.body)
-// 5	Edit				
-// 6	Update				
-// 7	Destroy

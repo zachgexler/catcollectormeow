@@ -4,27 +4,29 @@
   <head>
     <meta charset="utf-8" />
     <title>New Staff</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
   </head>
   <body>
     
-    <h1>New Staff</h1>
-    <!--  NOTE: action will be the route, method will be the HTTP verb-->
-
-    <div id="drop-area">
-      <form class="my-form">
-        <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
-        <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
-        <label class="button" for="fileElem">Select some files</label>
+    <div class="text-center">
+      <h1>Meet Our New Hire</h1>
+      
+      <form action="/staff/new" method="POST">
+        <h4> Name </h4>
+        <input type="text" name="name" />
+        <h4> Title </h4>
+        <input type="text" name="title" />
+        <h4> Job</h4>
+        <input type="text" name="job" />
+        <h4> Image Link </h4>
+        <input type="text" name="img"/>
+        <h4> List of Tasks (separated by comma)</h4>
+        <input type="text" name="tasks" />
+        <br>
+        <input type="submit" value="Add New Employee" />
       </form>
     </div>
-    <form action="/staff/" method="POST">
-      Name: <input type="text" name="name" /><br />
-      Title: <input type="text" name="name" /><br />
-      Job: <input type="text" name="name" /><br />
-      Tasks: <input type="text" name="name" /><br />
-      Recently Hired: <input type="checkbox" /><br />
-      <input type="submit" value="Add New Employee" />
-    </form>
-    
     </body>
     </html>
