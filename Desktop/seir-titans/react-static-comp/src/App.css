@@ -1,0 +1,72 @@
+
+
+div {
+  margin: 5px;
+  padding: 5px;
+}
+
+.App {
+  text-align: center;
+  font-family: Helvetica;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr;
+  grid-template-areas: 
+  "sidebar reviews avgRating sentAnalysis"
+  "sidebar web web web";
+  border: none;
+}
+
+#root {
+  border: none;
+  background-color: #f7f7f6;
+}
+
+.AvgRating {
+  grid-area: avgRating;
+  background-color: #dddddd;
+}
+
+.SideBar {
+  grid-area: sidebar;
+  background-color: #dddddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.WebsiteVisits {
+  grid-area: web;
+  background-color: #dddddd;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 2fr;
+  justify-content: space-around;
+}
+
+.Reviews {
+  grid-area: reviews;
+  background-color: #dddddd;
+}
+
+.SentAnalysis {
+  grid-area: sentAnalysis;
+  background-color: #dddddd;
+}
+
+.WebHeader {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.WebData {
+  display: flex;
+  flex-direction: row;
+  min-width: 80vmin;
+  min-height: 30vmin;
+  justify-content: center;
+  background-color: #bebdbd;
+  margin: auto;
+}
