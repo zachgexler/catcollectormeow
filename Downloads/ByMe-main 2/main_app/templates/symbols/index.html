@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Watch List</h1>
+
+{% for Symbols in Symbols %}
+<div class="card">
+  <a href=“/symbols/{{ symbol.id }}">
+  <div class="card-content">
+    <span class="card-title">{{ symbol.name }}</span>
+    <p>Symbol {{ symbol.symbol }}</p>
+    <p>Description: {{ symbol.description }}</p>
+  </div>
+  </a>
+</div>
+{% endfor %} {% endblock %}
