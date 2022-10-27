@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Watch List</h1>
+
+
+{% if user.is_authenticated %}
+
+
+<p>symbols:</p>
+
+{% for symbol in object_list %}
+
+<p>{{ symbol.name }}</p>
+<p>{{ symbol.symbol }}</p>
+<p>{{ symbol.price }}</p>
+
+<h1><a href= "{% url 'symbol_delete' symbol.pk %}">delete</href></h1>
+  <h1><a href= "{% url 'symbol_update' symbol.pk %}">update</href></h1>
+
+{% endfor %}
+{% endif %}
+
+ {% endblock %}
